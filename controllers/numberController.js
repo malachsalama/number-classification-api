@@ -32,7 +32,7 @@ const isArmstrong = (num) => {
   return sum === num;
 };
 
-// Calculating the sum of digits
+// Calculate the sum of digits
 const digitSum = (num) => {
   return num
     .toString()
@@ -62,19 +62,21 @@ const classifyNumber = async (req, res) => {
   }
 
   const properties = [];
-  if (isArmstrong(num)) properties.push("armstrong");
-  properties.push(num % 2 === 0 ? "even" : "odd");
+  if (isArmstrong(parsedNumber)) properties.push("armstrong");
+  properties.push(parsedNumber % 2 === 0 ? "even" : "odd");
 
   try {
-    const response = await axios.get(`http://numbersapi.com/${num}/math`);
+    const response = await axios.get(
+      `http://numbersapi.com/${parsedNumber}/math`
+    );
     const fun_fact = response.data;
 
     return res.json({
-      number: num,
-      is_prime: isPrime(num),
-      is_perfect: isPerfect(num),
+      number: parsedNumber,
+      is_prime: isPrime(parsedNumber),
+      is_perfect: isPerfect(parsedNumber),
       properties,
-      digit_sum: digitSum(num),
+      digit_sum: digitSum(parsedNumber),
       fun_fact,
     });
   } catch (error) {
