@@ -42,10 +42,23 @@ const digitSum = (num) => {
 
 const classifyNumber = async (req, res) => {
   const { number } = req.query;
-  const num = parseInt(number);
 
-  if (isNaN(num)) {
-    return res.status(400).json({ number, error: true });
+  // Check if the number parameter is provided
+  if (!number) {
+    return res.status(400).json({
+      number: null,
+      error: true,
+    });
+  }
+
+  const parsedNumber = parseInt(number, 10);
+
+  // Check if the provided number is a valid integer
+  if (isNaN(parsedNumber)) {
+    return res.status(400).json({
+      number: number,
+      error: true,
+    });
   }
 
   const properties = [];
