@@ -46,7 +46,7 @@ const classifyNumber = async (req, res) => {
   // Check if the number parameter is provided
   if (!number) {
     return res.status(400).json({
-      number: null,
+      number: "alphabet",
       error: true,
     });
   }
