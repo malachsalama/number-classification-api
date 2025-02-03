@@ -44,7 +44,8 @@ const classifyNumber = async (req, res) => {
   const { number } = req.query;
 
   // Check if the number parameter is provided
-  if (!number) {
+  const isValidNumber = (number) => /^\d+$/.test(number);
+  if (!number || !isValidNumber(number)) {
     return res.status(400).json({
       number: "alphabet",
       error: true,
@@ -52,14 +53,6 @@ const classifyNumber = async (req, res) => {
   }
 
   const parsedNumber = parseInt(number, 10);
-
-  // Check if the provided number is a valid integer
-  if (isNaN(parsedNumber)) {
-    return res.status(400).json({
-      number: number,
-      error: true,
-    });
-  }
 
   const properties = [];
   if (isArmstrong(parsedNumber)) properties.push("armstrong");
