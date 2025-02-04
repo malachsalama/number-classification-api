@@ -40,19 +40,21 @@ const digitSum = (num) => {
     .reduce((acc, digit) => acc + parseInt(digit), 0);
 };
 
+const isValidNumber = (number) => /^-?\d+$/.test(number);
+
 const classifyNumber = async (req, res) => {
   const { number } = req.query;
 
   // Check if the number parameter is provided
-  const isValidNumber = (number) => /^\d+$/.test(number);
-  if (!number || !isValidNumber(number)) {
+  const trimmedNumber = number?.trim();
+  if (!trimmedNumber || !isValidNumber(trimmedNumber)) {
     return res.status(400).json({
-      number: "alphabet",
+      number: number,
       error: true,
     });
   }
 
-  const parsedNumber = parseInt(number, 10);
+  const parsedNumber = parseInt(trimmedNumber, 10);
 
   const properties = [];
   if (isArmstrong(parsedNumber)) properties.push("armstrong");
