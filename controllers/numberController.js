@@ -23,6 +23,7 @@ const isPerfect = (num) => {
 
 // Check if a number is an Armstrong number
 const isArmstrong = (num) => {
+  if (num < 0) return false;
   const digits = num.toString().split("");
   const power = digits.length;
   const sum = digits.reduce(
@@ -34,10 +35,11 @@ const isArmstrong = (num) => {
 
 // Calculate the sum of digits
 const digitSum = (num) => {
-  return num
-    .toString()
-    .split("")
-    .reduce((acc, digit) => acc + parseInt(digit), 0);
+  const isNegative = num < 0;
+  const digits = Math.abs(num).toString().split("").map(Number);
+  const sum = digits.reduce((acc, digit) => acc + digit, 0);
+
+  return isNegative ? -sum : sum;
 };
 
 const isValidNumber = (number) => /^-?\d+$/.test(number);
