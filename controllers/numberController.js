@@ -11,6 +11,7 @@ const isPrime = (num) => {
 
 // Check if a number is perfect
 const isPerfect = (num) => {
+  if (num < 2) return false;
   let sum = 1;
   for (let i = 2; i <= Math.sqrt(num); i++) {
     if (num % i === 0) {
@@ -51,7 +52,7 @@ const classifyNumber = async (req, res) => {
   const trimmedNumber = number?.trim();
   if (!trimmedNumber || !isValidNumber(trimmedNumber)) {
     return res.status(400).json({
-      number: number,
+      number: number || null,
       error: true,
     });
   }
